@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class FileOperation {
 
 	//Declaring class variable
-	static final String projectFilesPath = "C:\\Users\\Jits\\Desktop\\Phase1_FinalProject_LockedMe\\Repository";
+	static final String projectFilesPath = "files";
 	private static Scanner sc;
 	
 	/**
@@ -64,7 +64,7 @@ public class FileOperation {
 				System.out.print("Enter how many lines in the file : ");
 				linesCount = Integer.parseInt(sc.nextLine());
 				
-				FileWriter fw = new FileWriter(projectFilesPath+"\\" + fileName);
+				FileWriter fw = new FileWriter(projectFilesPath + "\\" + fileName);
 				
 				//Reading line by line from user
 				for(int i=1; i<=linesCount; i++){
@@ -105,7 +105,8 @@ public class FileOperation {
 		
 				//Performing delete file action based on the file availability
 				if(checkFileExist(fileName)){
-					File file = new File(projectFilesPath+"\\" + fileName);
+					File file = new File(projectFilesPath + "\\" + fileName);
+					
 					file.delete();
 					System.out.println("File deleted successfully.");
 				}else{
@@ -154,7 +155,7 @@ public class FileOperation {
 			}
 			
 		}catch(Exception e){
-			System.out.println("");
+			System.out.println("Something went wrong. Please contact you administrator.");
 		}
 		
 	}
