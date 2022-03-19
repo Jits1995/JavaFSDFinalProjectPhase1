@@ -35,6 +35,8 @@ public static void displaySubMenu(){
 		Scanner sc= new Scanner(System.in);
 		int subOption = 0;
 		
+		
+		//do while loop for continue execution of application
 		do{
 			try{
 				
@@ -42,8 +44,8 @@ public static void displaySubMenu(){
 				DisplaySubMenu.displaySubMenu();
 				
 				//getting user input
-				System.out.print("Please enter your choice : ");
-				subOption = sc.nextInt();
+				System.out.print("Please enter your choice (Between 0 to 3) : ");
+				subOption = Integer.parseInt(sc.nextLine());
 				
 				//Performing user selected operation 
 				switch(subOption){
@@ -58,7 +60,6 @@ public static void displaySubMenu(){
 					FileOperation.searchFile();
 					break;
 				case 0:
-					//System.out.println("In the case 0");
 					break;
 				default:
 					System.out.println("Invalid input entered");
@@ -66,16 +67,13 @@ public static void displaySubMenu(){
 				}
 			
 			}catch(Exception e){
-				System.out.println("Invalid input. Please try again......");
-				System.out.println(e);
+				System.out.println("SUB MENU : Invalid input. Please try again......");
+
 				//assigning variable option value 5 to continue the execution of the applications
-				//subOption = 5;
+				subOption = 5;
 			}
 			
 		}while(subOption>0);
 		
-		
-		//Close all object
-		//sc.close();		
 	}
 }

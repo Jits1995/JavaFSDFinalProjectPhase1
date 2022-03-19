@@ -53,24 +53,30 @@ public class FileOperation {
 			int linesCount=0;
 			
 			//Getting filename from user
-			System.out.print("Enter file name : ");
+			System.out.print("Enter file name (Only .txt format supported) : ");
 			fileName = sc.nextLine();
-			System.out.print("Enter how many lines in the file : ");
-			linesCount = Integer.parseInt(sc.nextLine());
 			
 			//Calling method to check user enter file extension or not
-			fileName = checkFileExtension(fileName);
+			boolean validFileExtension = checkFileExtension(fileName);
 			
-			FileWriter fw = new FileWriter(projectFilesPath+"\\" + fileName);
-			
-			//Reading line by line from user
-			for(int i=1; i<=linesCount; i++){
-				System.out.println("Enter file line :");
-				fw.write(sc.nextLine()+"\n");
+			if(validFileExtension){
+				
+				System.out.print("Enter how many lines in the file : ");
+				linesCount = Integer.parseInt(sc.nextLine());
+				
+				FileWriter fw = new FileWriter(projectFilesPath+"\\" + fileName);
+				
+				//Reading line by line from user
+				for(int i=1; i<=linesCount; i++){
+					System.out.println("Enter file line :");
+					fw.write(sc.nextLine()+"\n");
+				}
+				
+				System.out.println("File created successfully.");
+				fw.close();
+			}else{
+				System.out.println("Invalid Filename entered.");
 			}
-			
-			System.out.println("File created successfully.");
-			fw.close();
 			
 		}catch (Exception e) {
 			System.out.println("Something went wrong. Try again....");
@@ -89,19 +95,24 @@ public class FileOperation {
 			String fileName;
 			
 			//Getting filename from user
-			System.out.print("Enter (case sensitive) file name to be delete : ");
+			System.out.print("Enter (case sensitive) file name to be delete (Only .txt format supported): ");
 			fileName = sc.nextLine();
 			
 			//Calling method to check user enter file extension or not
-			fileName = checkFileExtension(fileName);
+			boolean validFileExtension = checkFileExtension(fileName);
+			
+			if(validFileExtension){
 		
-			//Performing delete file action based on the file availability
-			if(checkFileExist(fileName)){
-				File file = new File(projectFilesPath+"\\" + fileName);
-				file.delete();
-				System.out.println("File deleted successfully.");
+				//Performing delete file action based on the file availability
+				if(checkFileExist(fileName)){
+					File file = new File(projectFilesPath+"\\" + fileName);
+					file.delete();
+					System.out.println("File deleted successfully.");
+				}else{
+					System.out.println("File does not exist.");
+				}
 			}else{
-				System.out.println("File does not exist.");
+				System.out.println("Invalid Filename entered.");
 			}
 			
 		}catch (Exception e) {
@@ -124,18 +135,23 @@ public class FileOperation {
 			String fileName = "";
 			
 			//Getting user input for searching file
-			System.out.print("Enter File name to search : ");
+			System.out.print("Enter File name to search (Only .txt format supported) : ");
 			fileName = sc.nextLine();
 			
 			//Calling method to check user enter file extension or not
-			fileName = checkFileExtension(fileName);
+			boolean validFileExtension = checkFileExtension(fileName);
 			
-			//Displaying the file availability status to user
-			if(checkFileExist(fileName)){	
-				System.out.println("File is available.");
+			if(validFileExtension){
+			
+				//Displaying the file availability status to user
+				if(checkFileExist(fileName)){	
+					System.out.println("File is available.");
+				}else{
+					System.out.println("File is not available.");
+				}	
 			}else{
-				System.out.println("File is not available.");
-			}	
+				System.out.println("Invalid Filename entered.");
+			}
 			
 		}catch(Exception e){
 			System.out.println("");
@@ -172,13 +188,14 @@ public class FileOperation {
 	 * @param fileName String
 	 * @return String
 	 */
-	private static String checkFileExtension(String fileName) {
+	private static boolean checkFileExtension(String fileName) {
 		
 		//Checking file type(.txt) entered or not
-		if(!fileName.contains(".txt")){
-			fileName = fileName+".txt";
-		}		
-		return fileName;
+		if(fileName.contains(".txt")){
+			return true;
+		}
+		
+		return false;
 	}
 
 }
